@@ -1,0 +1,38 @@
+{% extends 'admin/change_form.html' %}
+
+{% block object-tools %}
+    {% if change %}
+        {% if not is_popup %}
+            <ul class="object-tools">
+            {% block object-tools-items %}
+                {% if custom_object_tools_items %}
+                    {% for item in custom_object_tools_items %}
+                        <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                {% endif %}
+                {{ block.super }}
+            {% endblock %}
+            </ul>
+        {% endif %}
+    {% else %}
+        {% if custom_object_tools_items %}
+            <ul class="object-tools">
+            {% for item in custom_object_tools_items %}
+                <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block submit_buttons_bottom %}
+    {% if custom_buttons %}
+    <div class="submit-row">
+        {% for btn in custom_buttons %}
+            <input type="submit" value="{{ btn.title }}" name="{{ btn.action }}">
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {{ block.super }}
+{% endblock %}

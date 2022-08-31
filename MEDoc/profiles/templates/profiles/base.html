@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <span id="M">M</span>
+                    <span id="E">E</span>
+                    <span id="D">D</span>
+                    <span id="o">o</span>
+                    <span id="c">c</span>
+                </a>
+            </div>
+            
+            <input id="menu-toggle" type="checkbox" />
+            <label class='menu-button-container' for="menu-toggle">
+                <div class="desktop-menu-button">
+                    {% if user.id and user.avatar %}
+                        <img src="{{ user.avatar.url }}">
+                    {% else %}
+                        <img src="/static/images/default_avatar.png">
+                    {% endif %}
+                    <svg id="dropdown-button" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.41 0.589996L6 5.17L10.59 0.589996L12 2L6 8L0 2L1.41 0.589996Z" fill="white"/>
+                    </svg>
+                </div>
+                <div class='mobile-menu-button'></div>
+            </label>
+
+            <div class="search">
+                <form action="{% url 'doc_search' %}" method="get">
+                    <input type="text" name="q" placeholder="🔍︎ Поиск..." value="{{ q }}">
+                </form>
+            </div>
+
+            <div class="menu">
+                <div class="links">
+                    <ul>
+                        <li class="inline-link">
+                            <a href="{% url 'docs' %}">
+                                <svg fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m17 14a1 1 0 0 1 -1 1h-8a1 1 0 0 1 0-2h8a1 1 0 0 1 1 1zm-4 3h-5a1 1 0 0 0 0 2h5a1 1 0 0 0 0-2zm9-6.515v8.515a5.006 5.006 0 0 1 -5 5h-10a5.006 5.006 0 0 1 -5-5v-14a5.006 5.006 0 0 1 5-5h4.515a6.958 6.958 0 0 1 4.95 2.05l3.484 3.486a6.951 6.951 0 0 1 2.051 4.949zm-6.949-7.021a5.01 5.01 0 0 0 -1.051-.78v4.316a1 1 0 0 0 1 1h4.316a4.983 4.983 0 0 0 -.781-1.05zm4.949 7.021c0-.165-.032-.323-.047-.485h-4.953a3 3 0 0 1 -3-3v-4.953c-.162-.015-.321-.047-.485-.047h-4.515a3 3 0 0 0 -3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3z"/></svg>
+                                <span>Документы</span>
+                            </a>
+                        </li>
+                        <li class="inline-link">
+                            <a href="https://vk.com/im?sel=-210457778">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><g><circle cx="7.565" cy="8.543" r="1.304"/><circle cx="16.5" cy="8.543" r="1.304"/><path d="M21.261,8.478V6.973c0-2.338-1.896-4.233-4.233-4.233H6.973c-2.337,0-4.233,1.895-4.233,4.233v1.505   C1.227,8.478,0,9.705,0,11.217s1.227,2.739,2.739,2.739v3.071c0,2.338,1.896,4.233,4.233,4.233h10.055   c2.337,0,4.233-1.895,4.233-4.233v-3.071c1.513,0,2.739-1.227,2.739-2.739S22.773,8.478,21.261,8.478z M7.565,6.196   c1.333,0,2.413,1.08,2.413,2.413c0,1.333-1.08,2.413-2.413,2.413c-1.333,0-2.413-1.081-2.413-2.413   C5.152,7.276,6.232,6.196,7.565,6.196z M18.261,15.841h-2.886l-0.872,1.599l-1.049-1.727l-1.092,2.592l-1.702-3.471l-0.535,1.234   H5.739v-1.043H9.44l1.161-2.679l1.689,3.442l0.996-2.364l1.168,1.925l0.302-0.553h3.505V15.841z M16.435,11.022   c-1.333,0-2.413-1.081-2.413-2.413c0-1.333,1.08-2.413,2.413-2.413c1.333,0,2.413,1.08,2.413,2.413   C18.848,9.941,17.768,11.022,16.435,11.022z"/></g></svg>
+                                <span>Бот</span>
+                            </a>
+                        </li>
+                        <li class="inline-link">
+                            <a href="{% url 'about' %}">
+                                <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10.011,10.011,0,0,1,12,22Z"/><path d="M12,10H11a1,1,0,0,0,0,2h1v6a1,1,0,0,0,2,0V12A2,2,0,0,0,12,10Z"/><circle cx="12" cy="6.5" r="1.5"/></svg>
+                                <span>О нас</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="user-dropdown">
+                    <ul>
+                        {% if user.id %}
+                        {% if user.is_staff %}
+                        <li class="dropdown-item">
+                            <a href="{% url 'admin:index' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><g><path fill="none" d="M0 0h24v24H0z"/><path d="M12 14v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8zm0-1c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm9 6h1v5h-8v-5h1v-1a3 3 0 0 1 6 0v1zm-2 0v-1a1 1 0 0 0-2 0v1h2z"/></g></svg>
+                                <span>Админка</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="dropdown-item">
+                            <a href="{% url 'profile' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12,12A6,6,0,1,0,6,6,6.006,6.006,0,0,0,12,12ZM12,2A4,4,0,1,1,8,6,4,4,0,0,1,12,2Z"/><path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/></svg>
+                                <span>Профиль</span>
+                            </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="{% url 'logout' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M22.829,9.172,18.95,5.293a1,1,0,0,0-1.414,1.414l3.879,3.879a2.057,2.057,0,0,1,.3.39c-.015,0-.027-.008-.042-.008h0L5.989,11a1,1,0,0,0,0,2h0l15.678-.032c.028,0,.051-.014.078-.016a2,2,0,0,1-.334.462l-3.879,3.879a1,1,0,1,0,1.414,1.414l3.879-3.879a4,4,0,0,0,0-5.656Z"/><path d="M7,22H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2H7A1,1,0,0,0,7,0H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H7a1,1,0,0,0,0-2Z"/></svg>
+                                <span>Выйти</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="dropdown-item">
+                            <a href="{% url 'login' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="white" xmlns="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                                    <g>
+                                        <path d="M149.333,469.333h-42.667c-35.346,0-64-28.654-64-64V106.667c0-35.346,28.654-64,64-64h42.667   c11.782,0,21.333-9.551,21.333-21.333S161.115,0,149.333,0h-42.667C47.786,0.071,0.071,47.786,0,106.667v298.667   C0.071,464.214,47.786,511.93,106.667,512h42.667c11.782,0,21.333-9.551,21.333-21.333   C170.667,478.885,161.115,469.333,149.333,469.333z"/>
+                                        <path d="M490.667,234.667L490.667,234.667l-336.576,0.683c1.871-3.475,4.211-6.677,6.955-9.515l82.752-82.752   c8.475-8.185,8.71-21.691,0.525-30.165c-8.185-8.475-21.691-8.71-30.165-0.525c-0.178,0.172-0.353,0.347-0.525,0.525   l-82.795,82.752c-33.313,33.323-33.313,87.339,0,120.661l82.752,82.752c8.185,8.475,21.691,8.709,30.165,0.524   c8.475-8.185,8.709-21.691,0.524-30.165c-0.172-0.178-0.346-0.353-0.524-0.524l-82.752-82.752   c-2.388-2.459-4.472-5.195-6.208-8.149l335.872-0.683c11.782,0,21.333-9.551,21.333-21.333   C512,244.218,502.449,234.667,490.667,234.667z"/>
+                                    </g>
+                                </svg>
+                                <span>Войти</span>
+                            </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="{% url 'registration' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M23,11H21V9a1,1,0,0,0-2,0v2H17a1,1,0,0,0,0,2h2v2a1,1,0,0,0,2,0V13h2a1,1,0,0,0,0-2Z"/><path d="M9,12A6,6,0,1,0,3,6,6.006,6.006,0,0,0,9,12ZM9,2A4,4,0,1,1,5,6,4,4,0,0,1,9,2Z"/><path d="M9,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,9,14Z"/></svg>
+                                <span>Регистрация</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="container">
+        {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</body>
+
+</html>

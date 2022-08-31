@@ -1,0 +1,9 @@
+.idea
+venv
+__pycache__
+MEDoc/config
+MEDoc/logs
+MEDoc/media
+MEDoc/static
+MEDoc/MEDoc/*.env
+MEDoc/docs/management/commands/backups
