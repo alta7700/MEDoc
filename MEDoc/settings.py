@@ -12,10 +12,18 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
-from dotenv import dotenv_values
 
 SETTINGS_DIR = Path(__file__).resolve().parent
 BASE_DIR = SETTINGS_DIR.parent
+
+if (SETTINGS_DIR / '.env').exists():
+    from dotenv import dotenv_values
+    env = dotenv_values(SETTINGS_DIR / '.env')
+    DEBUG = True
+else:
+    from os import environ
+    env = {**environ}
+    DEBUG = False
 
 
 INSTALLED_APPS = [
@@ -104,15 +112,6 @@ LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 
-if (SETTINGS_DIR / 'local.env').exists():
-    env = dotenv_values(SETTINGS_DIR / 'local.env')
-    DEBUG = True
-else:
-    env = dotenv_values(SETTINGS_DIR / 'prod.env')
-    DEBUG = False
-    CSRF_COOKIE_SECURE = True
-
-
 def list_from_env_value(name: str, required=False):
     value = env.get(name, '')
     assert value if required else True, f'{name} must be in .env file'
@@ -156,3 +155,5 @@ YADISK_TOKEN = env['YADISK_TOKEN']
 
 ALLOWED_HOSTS = list_from_env_value('ALLOWED_HOSTS')
 CSRF_TRUSTED_ORIGINS = list_from_env_value('CSRF_TRUSTED_ORIGINS')
+
+del env
