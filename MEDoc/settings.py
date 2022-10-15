@@ -154,4 +154,7 @@ CELERY_IGNORE_RESULT = True
 ALLOWED_HOSTS = list_from_env_value('ALLOWED_HOSTS')
 CSRF_TRUSTED_ORIGINS = list_from_env_value('CSRF_TRUSTED_ORIGINS')
 
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 del env
