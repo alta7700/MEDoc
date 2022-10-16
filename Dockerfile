@@ -6,4 +6,4 @@ RUN set -ex; \
     pip install -U pip; \
     pip install --no-cache-dir -r requirements.txt
 COPY . .
-ENTRYPOINT /usr/src/app/docker-entrypoint.sh
+CMD bash -c 'python manage.py collectstatic --noinput && gunicorn MEDoc.wsgi:application -c gunicorn.conf.py'
