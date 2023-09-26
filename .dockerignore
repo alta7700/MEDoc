@@ -1,6 +1,6 @@
 .idea
 venv
 __pycache__
-MEDoc/media
-MEDoc/static
-MEDoc/.env
+/static
+/media
+/*.env*

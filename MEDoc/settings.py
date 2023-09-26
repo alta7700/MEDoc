@@ -11,19 +11,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import dotenv_values
 
 
-SETTINGS_DIR = Path(__file__).resolve().parent
-BASE_DIR = SETTINGS_DIR.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-if (SETTINGS_DIR / '.env').exists():
-    from dotenv import dotenv_values
-    env = dotenv_values(SETTINGS_DIR / '.env')
-    DEBUG = True
-else:
-    from os import environ
-    env = {**environ}
-    DEBUG = False
+env = dotenv_values(BASE_DIR / '.env')
+DEBUG = env["DEBUG"].lower() in ('true', '1') if "DEBUG" in env else True  # 1 or 0
 
 
 INSTALLED_APPS = [
@@ -127,7 +121,7 @@ SECRET_KEY = env['SECRET_KEY']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'MEDoc',
+        'NAME': env['DB_NAME'],
         'USER': env['DB_USER'],
         'PASSWORD': env['DB_PASSWORD'],
         'HOST': env['DB_HOST'],
