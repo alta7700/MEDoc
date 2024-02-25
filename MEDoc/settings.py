@@ -10,14 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from os import environ as env
 from pathlib import Path
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = dotenv_values(BASE_DIR / '.env')
-DEBUG = env["DEBUG"].lower() in ('true', '1') if "DEBUG" in env else True  # 1 or 0
+load_dotenv(BASE_DIR / '.env')
+DEBUG = env.get("DEBUG", "false").lower() in ('true', '1')  # 1 or 0
 
 
 INSTALLED_APPS = [
@@ -153,5 +154,3 @@ CSRF_TRUSTED_ORIGINS = list_from_env_value('CSRF_TRUSTED_ORIGINS')
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-del env
