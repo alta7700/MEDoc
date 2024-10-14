@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / '.env')
 DEBUG = env.get("DEBUG", "false").lower() in ('true', '1')  # 1 or 0
-SERVE_STATIC = DEBUG or (env.get("SERVE_STATIC", "false").lower() in ('true', '1'))
 
 INSTALLED_APPS = [
     'django.contrib.admin',
