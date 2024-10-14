@@ -1,4 +1,4 @@
-Django==5.1-rc1
+Django==4.0.2
 django-mptt==0.14.0
 django-mptt-admin==2.3.0
 Pillow==10.0.1
