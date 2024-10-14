@@ -20,7 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 DEBUG = env.get("DEBUG", "false").lower() in ('true', '1')  # 1 or 0
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -139,15 +138,6 @@ VK_CALLBACK_SECRET_KEY = env['VK_CALLBACK_SECRET_KEY']
 VK_CALLBACK_CONFIRMATION_CODE = env['VK_CALLBACK_CONFIRMATION_CODE']
 VK_APP_ID = int(env['VK_APP_ID'])
 VK_GROUP_OWNER_ID = int(env['VK_GROUP_OWNER_ID'])
-
-REDIS_CELERY = env['REDIS_CELERY']
-CELERY_BROKER_URL = REDIS_CELERY
-CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = REDIS_CELERY
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_IGNORE_RESULT = True
 
 ALLOWED_HOSTS = list_from_env_value('ALLOWED_HOSTS')
 CSRF_TRUSTED_ORIGINS = list_from_env_value('CSRF_TRUSTED_ORIGINS')
