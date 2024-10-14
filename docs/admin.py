@@ -280,7 +280,7 @@ class DocAdmin(DjangoMpttAdmin):
                     'owner': obj.owner.id,
                     'offer': offer_id
                 }
-                download_doc_and_upload_vk.delay(**obj_values)
+                download_doc_and_upload_vk(**obj_values)
             elif 'copy_doc' in request.GET:
                 copy_obj = Doc.objects.get(id=request.GET.get('copy_doc'))
                 copy_obj.pk = None
@@ -302,7 +302,7 @@ class DocAdmin(DjangoMpttAdmin):
                         'owner': obj.owner.id,
                         'file': True
                     }
-                    download_doc_and_upload_vk.delay(**obj_values)
+                    download_doc_and_upload_vk(**obj_values)
                 else:
                     obj.is_folder = True
                     parent = obj.parent

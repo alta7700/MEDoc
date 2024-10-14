@@ -10,12 +10,11 @@ from datetime import datetime, timedelta
 def index_vk(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data)
         if data['secret'] == VK_CALLBACK_SECRET_KEY and data['group_id'] == VK_INT_GROUP_ID:
             if data['type'] == 'message_new':
                 message = data['object']['message']
                 if datetime.now() - datetime.fromtimestamp(message['date']) < timedelta(seconds=7):
-                    answer_message.delay('message_new', message)
+                    answer_message('message_new', message)
                 return HttpResponse('OK', content_type="text/plain", status=200)
             elif data['type'] == 'confirmation':
                 return HttpResponse(VK_CALLBACK_CONFIRMATION_CODE, content_type="text/plain", status=200)

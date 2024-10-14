@@ -1,14 +1,12 @@
 import requests
 from vk_api.exceptions import Captcha
 from MEDoc.settings import VK_STR_GROUP_ID,  VK_INT_GROUP_ID
-from MEDoc.celery import app
 from bots.vk_bot.vk_connection import user_session, var_message, send_captcha_to_user
 from .models import Doc, Offer
 from profiles.models import User
 from os import remove
 
 
-@app.task
 def download_doc_and_upload_vk(title=None, ext=None, parent=None, owner=None, offer=None, file=None):
     user = User.objects.get(id=owner)
     try:
@@ -76,6 +74,5 @@ def download_doc_and_upload_vk(title=None, ext=None, parent=None, owner=None, of
                     kb_params=kb, kb_inline=True, attach_list=[f'doc{VK_STR_GROUP_ID}_{doc_db.vk_doc_id}'])
 
 
-@app.task
-def rebuild_trees():
+def rebuild_tree():
     Doc.objects.rebuild()
