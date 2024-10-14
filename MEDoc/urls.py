@@ -16,5 +16,6 @@ urlpatterns = [
     path('', include('profiles.urls'))
 ]
 
-if settings.DEBUG:
+if settings.SERVE_STATIC:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
